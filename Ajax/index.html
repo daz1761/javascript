@@ -1,0 +1,45 @@
+<!DOCTYPE htnl>
+<html>
+    <head>
+        <title>Ajax</title>
+    </head>
+
+    <body>
+        <div id="container">
+
+        </div>
+
+        <script type="text/javascript">
+
+            var xhr = new XMLHttpRequest();
+            var container = document.getElementById("container");
+            console.log(container);
+
+            xhr.onreadystatechange = someCallBack;
+            
+            function someCallBack() {
+                // readyState can be either: 1, 2, 3, 4
+                if(xhr.readyState < 4) {
+                    return;
+                }
+
+                if(xhr.status !== 200) {
+                    return;
+                }
+
+                // all is well.....
+
+                console.log(xhr.responseText);
+                console.log("We have passed the if statements and already printed the responseText");
+
+                // add it to the div
+                container.innerHTML = xhr.responseText;
+            }
+            
+            // GET through the query string
+            xhr.open('GET', 'test.txt', true); // last arg is async or sync
+            xhr.send('');
+
+        </script>
+    </body>
+</html>

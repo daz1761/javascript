@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cookies</title>
+	</head>
+
+	<body>
+		<select name="piss" id="ddlTheme" onchange="setColor()">
+			<option value="Select Color">Select Colour</option>
+			<option value="red">Red</option>
+			<option value="green">Green</option>
+			<option value="blue">Blue</option>
+		</select>
+		
+		<script type="text/javascript">
+		
+			window.onload = function() {
+				if(document.cookie.length != 0) {
+					var nameValueArray = document.cookie.split("=");
+					document.bgColor = nameValueArray[1];
+					document.getElementById("ddlTheme").value = nameValueArray[1];
+				}
+			}
+		
+			function setColor() 
+			{
+				var selectedColor = document.getElementById("ddlTheme").value;
+				if(selectedColor != "Select Color")
+				{
+					document.bgColor = selectedColor;
+					var colorCookie = 'color' + '=' + selectedColor + '; max-age=3600';
+					document.cookie = colorCookie;
+					console.log(selectedColor);
+					console.log(colorCookie);
+					console.log(document.cookie);
+				}
+			}
+		
+		</script>
+	</body>
+</html>

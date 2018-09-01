@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Async Vs. Sync</title>
+    </head>
+
+    <body>
+        <h1>Async vs. Sync - Javascript</h1>
+
+        <p>Javascript is a single threaded language (excluding service workers)</p>
+
+        <script>
+            
+            let log = console.log;
+
+            let a = 5;
+            let b = 50;
+
+            let a1 = (function() { return 5 })()
+            let b1 = (function() { return 50 })()
+
+            log(a1);
+            log(b1);
+
+            let a2 = function(num) { return 5*num }
+            let b2 = function() { return 50 }
+
+            log(a2(b2()));
+
+            // with setTimeout, Geolocation, Promises, Fetch, and Ajax, we don't know when we will get the data back.
+            // because these are all async
+            // async means it runs aside the main thread and we get values later than ones that run on the main thread
+
+            let a3 = 100;
+            setTimeout( function() { a3++; log(a3) }, 1);
+            log(a3); // a3 will still be 100
+
+            // a promise is a good example of async
+            let p = new Promise(function(resolve, reject) {
+                // promises are wrappers around async functions
+                setTimeout(function() {
+                    resolve("Hello!");
+                }, 1);
+            });
+
+            log(p); // pending promise because its happening before the async stuff
+
+            setTimeout(function() {
+                log(p); // resolved promise after 10 msec
+            }, 10);
+
+            p.then(function(val) {
+                // this runs when its resolved so we don't need setTimeout()
+                log(val);
+            });
+
+        </script>
+
+    </body>
+</html>
